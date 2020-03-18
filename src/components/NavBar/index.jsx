@@ -14,9 +14,9 @@ const NavBar = () => {
       )}
 
     {isAuthenticated && (
-      <span>
-        <Link to="/">Home</Link>&nbsp;
+      <span> 
         <Link to="/profile">Profile</Link>
+        <Link to="/profile">Users</Link>
       </span>
     )}
       {/* {isAuthenticated && <button onClick={() => logout()}>Log out</button>} */}

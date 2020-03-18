@@ -6,11 +6,11 @@ import history from "./utils/history";
 import ErrorBoundary from "./components/ErrorBoundary";
 import NavBar from "./components/NavBar";
 
-
 import { useAuth0 } from "./react-auth0-spa";
 
-const Home = React.lazy(() => import("./components/Home")); 
-const Profile = React.lazy(() => import("./components/Profile")); 
+const Home = React.lazy(() => import("./components/Home"));
+const Profile = React.lazy(() => import("./components/Profile"));
+const Users = React.lazy(() => import("./components/Users"));
 
 function App() {
   const { loading } = useAuth0();
@@ -21,18 +21,21 @@ function App() {
 
   return (
     <div className="App">
-    {/* Don't forget to include the history module */}
-    <Router history={history}>
-      <ErrorBoundary>
-          <NavBar /> 
-          <main>
-            <Switch>
-              <Route exact path='/' component={Home} />
-              <Route path="/profile" component={Profile} />
-            </Switch>
-          </main>  
-      </ErrorBoundary>
-    </Router> 
+      {/* Don't forget to include the history module */}
+      <Router history={history}>
+        <ErrorBoundary>
+          <Suspense fallback={/*<Loader />*/ <div>Loading...</div>}>
+            <NavBar />
+            <main>
+              <Switch>
+                <Route path="/" exact />
+                <Route path="/profile" component={Profile} />
+                <Route path="/users" component={Users} />
+              </Switch>
+            </main>
+          </Suspense>
+        </ErrorBoundary>
+      </Router>
     </div>
   );
 }
